@@ -24,6 +24,7 @@ class Welcome extends CI_Controller {
 	}
 
 	// test buat method 
+	// satu method di halaman control merepresentasikan satu halaman
 	public function percobaan(){
 		$this->load->view('percobaan');
 	}
