@@ -7,39 +7,23 @@ class Blog extends CI_Controller{
         // kita buatkan akses ke databasennya
         $this->load->database();
         $this->load->helper('url');
+        // karena menggunakan model di kontrol kita maka kita load dia
+        $this->load->model('Blog_model');
     }
 
 
         // kita buat method sendiri
          public function index(){
-            // kita akses object database
-            // $this->load->database();
-            // akses data di mysqlnya
-            // $query = $this->db->query(" SELECT * FROM blog ");
-            // kita gunakan query builder 
-            $query=$this->db->get('blog');
-            // kita ambil method yang bernama result dari query
-            $data['blogs']=$query->result_array();
+            $data['blogs'] = $this->Blog_model->getBlog();
              $this->load->view('blog',$data);
 
         }
         // buat method baru
         public function detail($url){
-            // akses databasenya
-            // $this->load->database();
-            // kita ambil data dari database dan di simpan dalam variabel query
-            // $query = $this->db->query('SELECT * FROM blog WHERE url="'.$url.'"');
-
-            // kita filter nama colom url dengan nilaie url
-            $this->db->where('url',$url);
-
-            // kita gunakan metod yang di sediakan sama codeigniter
-            $query= $this->db->get('blog');
 
             // kita buat kan sebuah varibel dengan nama data dan index nya blog dan kita gunakan row untuk satu baris saja
-            $data['blog']=$query->row_array();
-            // print_r($data);
-            //kita panggil data detail
+            $data['blog']=$this->Blog_model->getSingleBlog($url);
+        
             $this->load->view('detail',$data);
             
 
