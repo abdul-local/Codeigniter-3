@@ -36,6 +36,12 @@ class Blog_model extends CI_Model {
         // gunakan method affected_rows sejumlah yang di kembalikan
         return $this->db->affected_rows();
     }
+    // buat method untuk delet 
+    public function deleteBlog($id){
+        $this->db->where('id',$id);
+        $this->db->delete('blog');
+        return $this->db->affected_rows();
+    }
 
 }
 
