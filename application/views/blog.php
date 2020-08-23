@@ -9,7 +9,10 @@
     <div class="blog">
     <h1>Artikel Terbaru</h1>
     <?php foreach($blogs as $key=> $blog) : ?>
-        <h1><?php echo $blog['title'] ?></h1>
+        <!-- gunakan site_url untuk mengarahkannya ke halaman url yang kita arahkan -->
+        
+        <h1><a href="<?php echo site_url('Blog/detail/'. $blog['url']); ?> ">
+        <?php echo $blog['title'] ?></a></h1>
         <p><?php echo $blog['content']; ?></p>
     <?php endforeach; ?>
     </div>
