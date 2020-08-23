@@ -10,6 +10,8 @@
     <form action="" method="POST">
     <label > Judul</label><br>
     <input type="text" name='judul'><br>
+    <label >Url</label><br>
+    <input type="text" name="url"><br>
     <label for="">Content</label><br>
     <textarea name="content" id="" cols="30" rows="10"></textarea><br>
     <button type='submit'>Simpan artikel</button>

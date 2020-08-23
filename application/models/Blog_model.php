@@ -12,13 +12,13 @@ class Blog_model extends CI_Model {
 
     }
     // buat method yang berfungsi untuk mengambil single data 
-    public function getSingleBlog($url)
+    public function getSingleBlog($field, $value)
     {
-        $this->db->where('url', $url);
+        $this->db->where($field, $value);
 
-        $query = $this->db->get('blog');
+        return $this->db->get('blog');
 
-        return $query->row_array();
+        // return $query->row_array();
 
     }
     // buat method baru untuk menyimpan data ke dalam database
@@ -28,6 +28,13 @@ class Blog_model extends CI_Model {
     // mengguakan method insert_id untuk mengembalikan id terakhirnya
     return $this->db->insert_id();
 
+    }
+
+    public function updateBlog($id, $post){
+        $this->db->where('id', $id);
+        $this->db->update('blog', $post);
+        // gunakan method affected_rows sejumlah yang di kembalikan
+        return $this->db->affected_rows();
     }
 
 }

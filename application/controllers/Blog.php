@@ -22,7 +22,8 @@ class Blog extends CI_Controller{
         public function detail($url){
 
             // kita buat kan sebuah varibel dengan nama data dan index nya blog dan kita gunakan row untuk satu baris saja
-            $data['blog']=$this->Blog_model->getSingleBlog($url);
+            $query=$this->Blog_model->getSingleBlog('url' ,$url);
+            $data['blog']=$query->row_array();
         
             $this->load->view('detail',$data);
             
@@ -39,7 +40,8 @@ class Blog extends CI_Controller{
         if($this->input->post()){
         $data['title']=$this->input->post('judul');
         $data['content']=$this->input->post('content');
-       $id= $this->Blog_model->insert($data);
+        $data['url']=$this->input->post('url');
+        $id= $this->Blog_model->insert($data);
         if($id){
             echo " Data Berhasil di simpan";
         }else
@@ -48,24 +50,38 @@ class Blog extends CI_Controller{
             
         }
 
-        
-        // print_r($data);
 
-         // kita tangkap data dari form
-        //  if(isset($_GET['judul'])){
-        //  $data['judul']= $_GET['judul'];
-        //  $data['content']=$_GET['content'];
-        //  print_r($data);
-        //menyimpan data ke dalam data base
-        
-        
-
-        //kita arahkan ke form_add
         $this->load->view('form_add');
 
          }
-         
 
+
+         // buat method baru untuk edit data guys
+
+
+         public function edit($id)
+         {
+             $query=$this->Blog_model->getSingleBlog('id', $id);
+             $data['blog']=$query->row_array();
+             // mau nangkap data yang tadi saya ubah
+             if($this->input->post()){
+                 $post['title'] =$this->input->post('title');
+                 $post['content'] =$this->input->post('content');
+                 $post['url']=$this->input->post('url');
+
+                $id= $this->Blog_model->updateBlog($id, $post);
+
+                if($id){
+                    echo " Data berhasil di simpan";
+                }else{
+                    echo "Data gagal di simpan";
+
+
+                }
+                   
+            }
+            $this->load->view('form_edit',$data);
+         }
         
      }
 
