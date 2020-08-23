@@ -28,6 +28,45 @@ class Blog extends CI_Controller{
             
 
         }
+
+        //buat method baru untuk menambahkan artikel
+
+        public function add()
+        
+        {
+        // kita tangkap dgn menggunakan method yang sudah di sediakan ama CI
+        // $this->input->get();
+        if($this->input->post()){
+        $data['title']=$this->input->post('judul');
+        $data['content']=$this->input->post('content');
+       $id= $this->Blog_model->insert($data);
+        if($id){
+            echo " Data Berhasil di simpan";
+        }else
+
+            echo" Data gagal di simpan ";
+            
+        }
+
+        
+        // print_r($data);
+
+         // kita tangkap data dari form
+        //  if(isset($_GET['judul'])){
+        //  $data['judul']= $_GET['judul'];
+        //  $data['content']=$_GET['content'];
+        //  print_r($data);
+        //menyimpan data ke dalam data base
+        
+        
+
+        //kita arahkan ke form_add
+        $this->load->view('form_add');
+
+         }
+         
+
+        
      }
 
 
