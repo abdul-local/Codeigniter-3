@@ -44,6 +44,8 @@ class Blog extends CI_Controller{
         $id= $this->Blog_model->insert($data);
         if($id){
             echo " Data Berhasil di simpan";
+            // gunakan method redirect untuk menyeretnya ke home
+            redirect('/');
         }else
 
             echo" Data gagal di simpan ";
@@ -73,6 +75,7 @@ class Blog extends CI_Controller{
 
                 if($id){
                     echo " Data berhasil di simpan";
+                    redirect('/');
                 }else{
                     echo "Data gagal di simpan";
 
