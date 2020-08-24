@@ -8,6 +8,7 @@ class Blog_model extends CI_Model {
     {
         // kita gunakan query builder untuk mengembalikan semua nilai blog
         $filter=$this->input->get('cari');
+        // menggunakan method like untuk mencari atau kata yang paling tepat di temukan
         $this->db->like('title',$filter);
          $query = $this->db->get('blog');
          return $query->result_array();
