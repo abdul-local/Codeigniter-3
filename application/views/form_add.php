@@ -14,14 +14,30 @@
   </header>
   <div class="container">
       <div class="row justify-content-center">
-          <div class="com-8-md">
-    <form action="" method="POST">
-    <label > Judul</label><br>
-    <input type="text" name='judul' class="form-control"><br>
-    <label >Url</label><br>
-    <input type="text" name="url" class="form-control"><br>
-    <label for="">Content</label><br>
-    <textarea name="content" id="" cols="30" rows="10"></textarea><br>
+          <div class="col-md-8">
+              <!-- menggunakan multipart untuk mngembalikan text form dengan atribut entype -->
+              <?php echo form_open_multipart(); ?>
+    <!-- <form action="" method="POST"> -->
+     <div class="form-group">
+    <label > Judul</label>
+    <?php echo form_input('judul', null , 'class="form-control" '); ?>
+    </div>
+    <!-- <input type="text" name='judul' class="form-control"><br> -->
+    <div class="form-group">
+    <label >Url</label>
+    <?php echo form_input('url', null , 'class="form-control"')?>
+    </div>
+    <!-- <input type="text" name="url" class="form-control"><br> -->
+    <div class="form-group">
+    <label for="">Content</label>
+    <?php echo form_textarea('content',null ,'class="form-control"') ?>
+    </div>
+    <!-- <textarea name="content" id="" cols="30" rows="10"></textarea><br> -->
+    <div class="form-group">
+    <label >Upload</label>
+    <?php echo form_upload('cover', null , 'class="form-control"')?>
+    </div>
+   
     <button type='submit'class="btn btn-primary">Simpan artikel</button>
     </form>
        </div>

@@ -5,10 +5,12 @@ class Blog extends CI_Controller{
     public function __construct(){
         parent::__construct();
         // kita buatkan akses ke databasennya
-        $this->load->database();
-        $this->load->helper('url');
+        // $this->load->database();
+        // $this->load->helper('url');
         // karena menggunakan model di kontrol kita maka kita load dia
         $this->load->model('Blog_model');
+        // kita load helper form
+        // $this->load->helper('form');
     }
 
 
