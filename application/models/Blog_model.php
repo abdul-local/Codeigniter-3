@@ -7,6 +7,8 @@ class Blog_model extends CI_Model {
     public function getBlog()
     {
         // kita gunakan query builder untuk mengembalikan semua nilai blog
+        $filter=$this->input->get('cari');
+        $this->db->like('title',$filter);
          $query = $this->db->get('blog');
          return $query->result_array();
 
