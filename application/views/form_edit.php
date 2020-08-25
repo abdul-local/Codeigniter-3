@@ -21,18 +21,22 @@
         <div class="col-md-8">
 
 <!-- <form method="POST"> -->
+<!-- memunculkan pesan error mengunakan validation -->
+<div class="alert alert-warning">
+<?php echo validation_errors() ?>
+</div>
 <?php echo form_open_multipart();   ?>
         <div class="form-group">
         <label>Judul</label>
-        <?php echo form_input('title',$blog['title'], 'class="form-control"') ?>
+        <?php echo form_input('title', set_value('title',$blog['title']), 'class="form-control"') ?>
         </div>
         <div class="form-group">
         <label>Url</label>
-        <?php echo form_input('url',$blog['url'], 'class="form-control"') ?>
+        <?php echo form_input('url',set_value('url',$blog['url']), 'class="form-control"') ?>
         </div>
         <div class="form-group">
         <label>Konten</label>
-        <?php echo form_textarea('content', $blog['content'], 'class="form-control"') ?>
+        <?php echo form_textarea('content',set_value('content',$blog['content']), 'class="form-control"') ?>
         </div>
         <div class="form-grpup">
         <label >Cover</label>

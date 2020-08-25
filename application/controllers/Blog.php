@@ -86,9 +86,15 @@ class Blog extends CI_Controller{
              // mau nangkap data yang tadi saya ubah
              if($this->input->post())
              {
+                 //kita gunakan form_validation
+                 $this->form_validation->set_rules('title','judul','required');
+                 $this->form_validation->set_rules('url','URL','required|alpha_dash');
+                 $this->form_validation->set_rules('content','Konten','required');
                  $post['title'] =$this->input->post('title');
                  $post['content'] =$this->input->post('content');
                  $post['url']=$this->input->post('url');
+                 if($this->form_validation->run() === TRUE)
+                 {
                  
                 $config['upload_path'] = './uploads';
                 $config['allowed_types'] ='gif|jpg|png';
@@ -116,7 +122,7 @@ class Blog extends CI_Controller{
                 }
                    
             }
-            
+        }
             $this->load->view('form_edit',$data);
          }
 
