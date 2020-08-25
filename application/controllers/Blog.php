@@ -94,6 +94,27 @@ class Blog extends CI_Controller{
                  $post['title'] =$this->input->post('title');
                  $post['content'] =$this->input->post('content');
                  $post['url']=$this->input->post('url');
+                 
+                $config['upload_path'] = './uploads';
+                $config['allowed_types'] ='gif|jpg|png';
+                $config['max_size']    = 2000;
+                $config['max_width']   =2000;
+                $config['max_heigh']  =2000;
+                $this->load->library('upload', $config);
+                if ( !$this->upload->do_upload('cover'))
+                    
+                {   // method display_errors untuk mengembalikan pesan error
+                    echo $this->upload->display_errors();
+                    // $error = array('error' => $this->upload->display_errors());
+                    // $this->load->view('upload_form', $error);
+                }else{
+                        //mau negcek keluaran di data
+                        // print_r($this->upload->data());
+                        // exit;
+
+                    $post['cover']=$this->upload->data()['file_name'];
+                    // $this->load->view('upload_success', $data);
+                }
 
                 $id= $this->Blog_model->updateBlog($id, $post);
 

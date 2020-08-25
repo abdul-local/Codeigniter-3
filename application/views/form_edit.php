@@ -18,15 +18,27 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-8-md">
-<form method="POST">
-    
-        <label>Judul</label><br>
-        <input type="text" name="title" class="form-control" value="<?php echo $blog['title'];?>"><br>
-        <label>Url</label><br>
-        <input type="text" name="url" class="form-control"  value="<?php echo $blog['url'];?>"><br>
-        <label>Konten</label><br>
-        <textarea name="content" id="" cols="30" rows="10"><?php echo $blog['content'];?></textarea><br>
+        <div class="col-md-8">
+
+<!-- <form method="POST"> -->
+<?php echo form_open_multipart();   ?>
+        <div class="form-group">
+        <label>Judul</label>
+        <?php echo form_input('title',$blog['title'], 'class="form-control"') ?>
+        </div>
+        <div class="form-group">
+        <label>Url</label>
+        <?php echo form_input('url',$blog['url'], 'class="form-control"') ?>
+        </div>
+        <div class="form-group">
+        <label>Konten</label>
+        <?php echo form_textarea('content', $blog['content'], 'class="form-control"') ?>
+        </div>
+        <div class="form-grpup">
+        <label >Cover</label>
+        <?php echo form_upload('cover',$blog['cover'],'class="form-control"')  ?>
+        </div>
+        <br>
     <button type="submit" class="btn btn-primary">Edit Artikel</button>
 </form>
 </div>
