@@ -4,14 +4,26 @@
 class Blog_model extends CI_Model {
 
     // buat method yang berfungsi untuk mengambil semua data
-    public function getBlog()
+    public function getBlog($limit,$offset)
     {
         // kita gunakan query builder untuk mengembalikan semua nilai blog
         $filter=$this->input->get('cari');
         // menggunakan method like untuk mencari atau kata yang paling tepat di temukan
         $this->db->like('title',$filter);
+        $this->db->limit($limit,$offset);
+        $this->db->order_by('date','desc');
          $query = $this->db->get('blog');
          return $query->result_array();
+
+    }
+    public function getTotalBlog()
+    {
+        // kita gunakan query builder untuk mengembalikan semua nilai blog
+        $filter=$this->input->get('cari');
+        // menggunakan method like untuk mencari atau kata yang paling tepat di temukan
+        $this->db->like('title',$filter);
+          return  $this->db->count_all_results('blog');
+         
 
     }
     // buat method yang berfungsi untuk mengambil single data 

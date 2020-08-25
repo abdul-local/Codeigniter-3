@@ -15,9 +15,17 @@ class Blog extends CI_Controller{
 
 
         // kita buat method sendiri
-         public function index(){
-            $data['blogs'] = $this->Blog_model->getBlog();
+         public function index($offset = 0){
+
+             $this->load->library('pagination');
+             $config['base_url']= site_url('Blog/index');
+             $config['total_rows'] = $this->Blog_model->getTotalBlog();
+             $config['per_page'] =3;
+             $this->pagination->initialize($config);
+             $data['blog']= $this->Blog_model->getBlog($config['per_page'],$offset);
              $this->load->view('blog',$data);
+
+
 
         }
         // buat method baru

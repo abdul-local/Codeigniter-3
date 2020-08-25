@@ -6,8 +6,8 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>Rumah Coding</h1>
-            <span class="subheading">Tempat belajar Coding terbaik</span>
+            <h1>Selamat Datang</h1>
+            <span class="subheading">Tempat belajar Coding </span>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@
         <input type="text" name="cari">
         <button type="submit" class="btn btn-primary">Cari</button>
         </form>
-       <?php foreach($blogs as $key=>$blog):?>
+       <?php foreach($blog as $key=>$blog):?>
         <div class="post-preview">
             <a href="<?php echo site_url('blog/detail/'.$blog['url']);?>">
               <h2 class="post-title">
@@ -38,6 +38,7 @@
         </div>
         <hr>
         <?php endforeach; ?>
+        <?php  echo $this->pagination->create_links(); ?>
         <!-- Pager -->
         <div class="clearfix">
           <a class="btn btn-primary float-right" href="#">Older Posts ?</a>
