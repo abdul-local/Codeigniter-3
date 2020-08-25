@@ -11,6 +11,7 @@ class Blog_model extends CI_Model {
         // menggunakan method like untuk mencari atau kata yang paling tepat di temukan
         $this->db->like('title',$filter);
         $this->db->limit($limit,$offset);
+        // proses pengurutannya
         $this->db->order_by('date','desc');
          $query = $this->db->get('blog');
          return $query->result_array();

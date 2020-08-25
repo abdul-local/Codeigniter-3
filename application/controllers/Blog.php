@@ -9,6 +9,9 @@ class Blog extends CI_Controller{
         // $this->load->helper('url');
         // karena menggunakan model di kontrol kita maka kita load dia
         $this->load->model('Blog_model');
+        // tambah library session
+        $this->load->library('session');
+
         // kita load helper form
         // $this->load->helper('form');
     }
@@ -71,12 +74,13 @@ class Blog extends CI_Controller{
                     $id=$this->Blog_model->insert($data);
                     if($id)
                     {
-                        echo "Data berhasil disimpan";
+                        $this->session->set_flashdata('pesan','<div class="alert alert-success">Data Berhasil di Simpan </div>');
                         redirect('/');
                     }
                     else
                     {
-                        echo "Data gagal disimpan";
+                        $this->session->set_flashdata('pesan','<div class="alert alert-warning">Data Gagal di Simpan </div>');
+                        redirect('/');
                     }
                 }
             }
@@ -120,11 +124,11 @@ class Blog extends CI_Controller{
                 $id = $this->Blog_model->updateBlog($id, $post);
 
                 if($id){
-                    echo " Data berhasil di simpan";
+                    $this->session->set_flashdata('pesan','<div class="alert alert-success">Data Berhasil di Simpan </div>');
                     redirect('/');
                 }else{
-                    echo "Data gagal di simpan";
-                    redirect('/');
+                    $this->session->set_flashdata('pesan','<div class="alert alert-warning">Data Gagal di Simpan </div>');
+                        redirect('/');
 
 
                 }
@@ -136,10 +140,17 @@ class Blog extends CI_Controller{
 
          // buat method yang berfungsi untuk menghapus data
          public function delete($id){
-             $this->Blog_model->deleteBlog($id);
+            $hasil= $this->Blog_model->deleteBlog($id);
              // kita redirect ke awal
+             if($hasil)
+             {
+             $this->session->set_flashdata('pesan','<div class="alert alert-success">Data Berhasil di Hapus </div>');
              redirect('/');
-        
+             }
+             else{
+             $this->session->set_flashdata('pesan','<div class="alert alert-warning">Data Gagal di Hapus </div>');
+             redirect('/');
+             }
 
 
          }

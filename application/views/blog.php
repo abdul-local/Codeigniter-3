@@ -18,8 +18,9 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
       <form>
+      <?php echo $this->session->flashdata('pesan'); ?><br>
         <input type="text" name="cari">
-        <button type="submit" class="btn btn-primary">Cari</button>
+        <button type="submit" class="">Cari</button>
         </form>
        <?php foreach($blog as $key=>$blog):?>
         <div class="post-preview">
@@ -30,9 +31,7 @@
              </a>
             <p class="post-meta">Posted on <?php echo $blog['date'];?>
                 <a href="<?php echo site_url('blog/edit/'.$blog['id']);?>"> Edit</a>
-                <a href="<?php echo site_url('blog/delete/'.$blog['id']);?>"> 
-                    Delete
-                </a>
+                <a href="<?php echo site_url('blog/delete/'.$blog['id']);?>" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?')"> Delete</a>
             </p>              
             <p><?php echo $blog['content'];?></p>
         </div>
