@@ -6,8 +6,8 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
-            <h1>Camp Abdul</h1>
-            <span class="subheading">Rumah Blog belajar web Developer dengan abdul</span>
+            <h1>Rumah Coding</h1>
+            <span class="subheading">Tempat belajar Coding terbaik</span>
           </div>
         </div>
       </div>

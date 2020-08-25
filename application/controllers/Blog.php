@@ -33,53 +33,47 @@ class Blog extends CI_Controller{
         }
 
         //buat method baru untuk menambahkan artikel
-
         public function add()
-        
         {
-        // kita tangkap dgn menggunakan method yang sudah di sediakan ama CI
-        // $this->input->get();
-        if($this->input->post()){
-        $data['title']=$this->input->post('judul');
-        $data['content']=$this->input->post('content');
-        $data['url']=$this->input->post('url');
-
-        $config['upload_path'] = './uploads';
-        $config['allowed_types'] ='gif|jpg|png';
-        $config['max_size']    = 2000;
-        $config['max_width']   =2000;
-        $config['max_heigh']  =2000;
-        $this->load->library('upload', $config);
-        if ( !$this->upload->do_upload('cover'))
-            
-        {   // method display_errors untuk mengembalikan pesan error
-            echo $this->upload->display_errors();
-            // $error = array('error' => $this->upload->display_errors());
-            // $this->load->view('upload_form', $error);
-        }else{
-                //mau negcek keluaran di data
-                // print_r($this->upload->data());
-                // exit;
-
-            $data['cover']=$this->upload->data()['file_name'];
-            // $this->load->view('upload_success', $data);
+            if($this->input->post())
+            {
+                $this->form_validation->set_rules('title', 'Judul', 'required');
+                $this->form_validation->set_rules('url', 'URL', 'required|alpha_dash');
+                $this->form_validation->set_rules('content', 'Konten', 'required');
+                if($this->form_validation->run()===TRUE)
+                {
+                    $data['title']=$this->input->post('title');
+                    $data['content']=$this->input->post('content');
+                    $data['url']=$this->input->post('url');
+                    //konfigurasi upload
+                    $config['upload_path']         = './uploads/';
+                    $config['allowed_types']        = 'gif|jpg|png';
+                    $config['max_size']             = 2000;
+                    $config['max_width']            = 2000;
+                    $config['max_height']           = 2000;
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('cover'))
+                    {
+                        echo $this->upload->display_errors();
+                    }
+                    else
+                    {
+                        $data['cover'] = $this->upload->data('file_name');
+                    }
+                    $id=$this->Blog_model->insert($data);
+                    if($id)
+                    {
+                        echo "Data berhasil disimpan";
+                        redirect('/');
+                    }
+                    else
+                    {
+                        echo "Data gagal disimpan";
+                    }
+                }
+            }
+            $this->load->view('form_add');
         }
-
-        $id= $this->Blog_model->insert($data);
-        if($id){
-            echo " Data Berhasil di simpan";
-            // gunakan method redirect untuk menyeretnya ke home
-            redirect('/');
-        }else
-
-            echo" Data gagal di simpan ";
-            
-        }
-
-
-        $this->load->view('form_add');
-
-         }
 
 
          // buat method baru untuk edit data guys
@@ -90,7 +84,8 @@ class Blog extends CI_Controller{
              $query=$this->Blog_model->getSingleBlog('id', $id);
              $data['blog']=$query->row_array();
              // mau nangkap data yang tadi saya ubah
-             if($this->input->post()){
+             if($this->input->post())
+             {
                  $post['title'] =$this->input->post('title');
                  $post['content'] =$this->input->post('content');
                  $post['url']=$this->input->post('url');
@@ -103,28 +98,12 @@ class Blog extends CI_Controller{
                 $this->load->library('upload', $config);
                 // saya mau ngecek nilai dari upload itu
                 $this->upload->do_upload('cover');
-                if(!empty($this->upload->data()['file_name']))
+                if(!empty($this->upload->data('file_name')))
                 {
-                    $post['cover']= $this->upload->data()['file_name'];
+                    $post['cover']= $this->upload->data('file_name');
                 }
 
-
-                // if ( !$this->upload->do_upload('cover'))
-                    
-                // {   // method display_errors untuk mengembalikan pesan error
-                //     echo $this->upload->display_errors();
-                //     // $error = array('error' => $this->upload->display_errors());
-                //     // $this->load->view('upload_form', $error);
-                // }else{
-                //         //mau negcek keluaran di data
-                //         // print_r($this->upload->data());
-                //         // exit;
-
-                //     $post['cover']=$this->upload->data()['file_name'];
-                //     // $this->load->view('upload_success', $data);
-                // }
-
-                $id= $this->Blog_model->updateBlog($id, $post);
+                $id = $this->Blog_model->updateBlog($id, $post);
 
                 if($id){
                     echo " Data berhasil di simpan";
@@ -137,6 +116,7 @@ class Blog extends CI_Controller{
                 }
                    
             }
+            
             $this->load->view('form_edit',$data);
          }
 
