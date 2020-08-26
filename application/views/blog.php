@@ -30,12 +30,16 @@
                </h2>
              </a>
             <p class="post-meta">Posted on <?php echo $blog['date'];?>
+            <?php if(isset($_SESSION['username'])): ?>
                 <a href="<?php echo site_url('blog/edit/'.$blog['id']);?>"> Edit</a>
                 <a href="<?php echo site_url('blog/delete/'.$blog['id']);?>" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?')"> Delete</a>
-            </p>              
+            <?php else:?>
+            </p>
+            <?php endif; ?>             
             <p><?php echo $blog['content'];?></p>
         </div>
         <hr>
+            
         <?php endforeach; ?>
         <?php  echo $this->pagination->create_links(); ?>
         <!-- Pager -->

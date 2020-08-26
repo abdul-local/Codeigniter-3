@@ -154,8 +154,42 @@ class Blog extends CI_Controller{
 
 
          }
-         
+         // buat method login
+
+         function login()
+         {
+             if($this->input->post())
+             {
+                 $username   = $this->input->post('username');
+                 $password   = $this->input->post('password');
+                 if($username=='admin' && $password=='admin')
+                 {
+                     $_SESSION['username']='admin';
+                     redirect('/');
+                 }
+                 else
+                 {
+                     $this->session->set_flashdata('pesan','<div class="alert alert-warning">Username atau Password Anda tidak valid!</div>');
+                     redirect('blog/login');
+                 }
+             }
+             $this->load->view('login'); 
+         }
         
+
+        // buat method untuk logout
+        public function logout(){
+            $this->session->sess_destroy();
+            redirect('/');
+
+
+        }
+
+        // buat method Contact
+        public function contact(){
+            
+            $this->load->view('contact');
+        }
      }
 
 
